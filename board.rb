@@ -1,4 +1,5 @@
 require_relative "tile"
+require "byebug"
 
 class Board
   def self.empty_grid
@@ -8,7 +9,7 @@ class Board
   end
 
   def self.from_file(filename)
-    rows = File.readlines(filename).map(&:chomp)
+    rows = File.readlines(filename).map(&:chomp).reject!(&:empty?)
     tiles = rows.map do |row|
       nums = row.split("").map { |char| Integer(char) }
       nums.map { |num| Tile.new(num) }
