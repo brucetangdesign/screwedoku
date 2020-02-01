@@ -27,7 +27,7 @@ class SudokuGame
       print "> "
 
       begin
-        pos = parse_pos(gets)
+        pos = parse_pos(gets.chomp)
       rescue => e
         puts e
         puts ""
@@ -65,10 +65,17 @@ class SudokuGame
     board.solved?
   end
 
+  def parse_pos(pos)
+    pos_arr = pos.split(",")
+    raise "You forgot a comma" if pos_arr.length == 1
+    raise "Only use numbers" if pos_arr.any?{|el| el.to_i.to_s != el}
+    pos_arr.map(&:to_i)
+  end
+
   def valid_pos?(pos)
-    if pos.is_a?(:Array) &&
-      pos.length = 2 &&
-      pos.all? { |x| x.in?(0, board.size - 1) }
+    if pos.is_a?(Array) &&
+      pos.length == 2 &&
+      pos.all? { |x| x.between?(0, board.size - 1) }
       return true
     else
       get_pos
