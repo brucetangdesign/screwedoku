@@ -11,7 +11,7 @@ class Board
   end
 
   def self.from_file(filename)
-    rows = File.open(filename).readlines.map(&:chomp)
+    rows = File.open(filename).readlines.map(&:chomp).reject{|row| row.length == 0}
     tiles = rows.map do |row|
       nums = row.split("").map { |char| Integer(char) }
       nums.map { |num| Tile.new(num) }
@@ -40,7 +40,7 @@ class Board
   end
 
   def render
-    puts "(0..8).to_a.join(" ")"
+    puts "  #{(0..8).to_a.join(" ")}"
     grid.each_with_index do |row, i|
       puts "#{i} #{row.join(" ")}"
     end
