@@ -68,7 +68,7 @@ class SudokuGame
   def parse_pos(pos)
     pos_arr = pos.split(",")
     raise "You forgot a comma" if pos_arr.length == 1
-    raise "Only use numbers" if pos_arr.any?{|el| el.to_i.to_s != el}
+    raise "Only use single digit numbers" if pos_arr.any?{|el| el.to_i.to_s != el}
     pos_arr.map(&:to_i)
   end
 
